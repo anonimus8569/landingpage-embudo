@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dominando el Embudo de Ventas Digital · Digital Business Masterclass</title>
+<meta name="description" content="Masterclass interactiva sobre el embudo de ventas digital, el modelo RACE y el marco de métricas VQVC de Dave Chaffey.">
+<style>
+:root{
+  --bg:#ffffff; --bg-soft:#f5f5f7; --ink:#1d1d1f; --ink-2:#86868b; --accent:#0071e3; --accent-h:#0077ed;
+  --line:rgba(0,0,0,.08); --shadow:0 4px 20px rgba(0,0,0,.04); --shadow-lg:0 12px 40px rgba(0,0,0,.08);
+  --r:16px; --ease:cubic-bezier(0.25,0.1,0.25,1);
+  --tofu:#0071e3; --mofu:#5e5ce6; --bofu:#30a46c; --eng:#ff9f0a;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#000;--bg-soft:#111113;--ink:#f5f5f7;--ink-2:#98989d;--line:rgba(255,255,255,.12);--shadow:0 4px 20px rgba(0,0,0,.5);--shadow-lg:0 12px 40px rgba(0,0,0,.6);--accent:#2997ff;--accent-h:#409cff}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+a{color:var(--accent);text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:120px 0}
+.soft{background:var(--bg-soft)}
+h1,h2,h3{letter-spacing:-.03em;line-height:1.08}
+h2{font-size:clamp(2rem,4.5vw,3.25rem);font-weight:700;text-align:center}
+.lead{max-width:680px;margin:20px auto 0;text-align:center;color:var(--ink-2);font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1.45}
+.sec-head{margin-bottom:64px}
+
+/* progress + nav */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:200;transition:width .1s linear}
+nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
+nav b{font-size:.95rem;font-weight:600}
+nav ul{display:flex;gap:28px;list-style:none}
+nav a{color:var(--ink-2);font-size:.82rem;transition:color .3s var(--ease)}
+nav a:hover{color:var(--ink)}
+.pct{font-size:.78rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+@media(max-width:720px){nav ul{display:none}}
+
+/* hero */
+.hero{padding:110px 0 90px;text-align:center}
+.badge{display:inline-block;padding:7px 16px;border-radius:99px;background:var(--bg-soft);border:1px solid var(--line);font-size:.85rem;font-weight:500;color:var(--ink-2);margin-bottom:28px}
+.hero h1{font-size:clamp(2.6rem,8vw,6rem);font-weight:800;max-width:900px;margin:0 auto}
+.hero p{max-width:720px;margin:28px auto 0;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--ink-2);line-height:1.4}
+.btns{display:flex;gap:14px;justify-content:center;margin-top:40px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 28px;border-radius:99px;font-size:1rem;font-weight:500;transition:all .3s var(--ease)}
+.btn.p{background:var(--accent);color:#fff}.btn.p:hover{background:var(--accent-h);transform:scale(1.03)}
+.btn.s{color:var(--accent);border:1px solid var(--accent)}.btn.s:hover{background:var(--accent);color:#fff}
+.race-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:820px;margin:72px auto 0}
+.race-strip div{padding:20px 12px;border-radius:var(--r);background:var(--bg-soft);border:1px solid var(--line)}
+.race-strip strong{display:block;font-size:1.6rem;letter-spacing:-.03em}
+.race-strip span{font-size:.82rem;color:var(--ink-2)}
+@media(max-width:600px){.race-strip{grid-template-columns:repeat(2,1fr)}}
+
+/* funnel */
+.funnel-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:start}
+@media(max-width:900px){.funnel-grid{grid-template-columns:1fr}}
+.funnel{display:flex;flex-direction:column;align-items:center;gap:8px;position:sticky;top:84px}
+@media(max-width:900px){.funnel{position:static}}
+.stage{width:100%;border:0;border-radius:var(--r);padding:22px 20px;text-align:center;color:#fff;background:var(--c);transition:all .4s var(--ease);opacity:.42;box-shadow:var(--shadow)}
+.stage:hover{opacity:.75}
+.stage[aria-selected="true"]{opacity:1;transform:scale(1.03);box-shadow:var(--shadow-lg)}
+.stage small{display:block;font-size:.8rem;opacity:.9;font-weight:500}
+.stage strong{display:block;font-size:1.2rem;letter-spacing:-.02em;margin:2px 0}
+.stage span{font-size:.85rem;opacity:.92}
+.stage:nth-child(1){width:100%}.stage:nth-child(2){width:84%}.stage:nth-child(3){width:68%}.stage:nth-child(4){width:52%}
+@media(max-width:520px){.stage:nth-child(n){width:100%}}
+.hint{font-size:.85rem;color:var(--ink-2);margin-top:8px;text-align:center}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:24px;padding:36px;box-shadow:var(--shadow)}
+.panel .tag{display:inline-block;font-size:.8rem;font-weight:600;padding:5px 12px;border-radius:99px;color:#fff;background:var(--c,var(--accent))}
+.panel h3{font-size:1.9rem;margin:14px 0 8px}
+.panel .obj{color:var(--ink-2);font-size:1.05rem;margin-bottom:8px}
+.blk{margin-top:26px}
+.blk h4{font-size:.95rem;font-weight:600;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 14px;border-radius:99px;background:var(--bg-soft);border:1px solid var(--line);font-size:.86rem}
+.blk ul{list-style:none;display:grid;gap:8px}
+.blk li{padding-left:22px;position:relative;font-size:.96rem}
+.blk li::before{content:"";position:absolute;left:2px;top:.58em;width:7px;height:7px;border-radius:50%;background:var(--c,var(--accent))}
+.vqvc{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(max-width:520px){.vqvc{grid-template-columns:1fr}}
+.vqvc div{padding:14px 16px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--line)}
+.vqvc b{display:block;font-size:.82rem;color:var(--ink-2);font-weight:600;margin-bottom:2px}
+.vqvc span{font-size:.9rem}
+.fade{animation:sw .45s var(--ease)}
+@keyframes sw{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:760px){.cards{grid-template-columns:1fr}}
+.card{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:24px;padding:36px;box-shadow:var(--shadow);transition:all .3s var(--ease);display:flex;flex-direction:column;gap:10px;min-height:230px}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--bg-soft);font-size:1.35rem}
+.card h3{font-size:1.45rem}
+.card p{color:var(--ink-2);font-size:.98rem;flex:1}
+.card .more{color:var(--accent);font-weight:500;font-size:.95rem}
+dialog{border:0;border-radius:28px;max-width:760px;width:calc(100% - 32px);max-height:88vh;padding:0;background:var(--bg);color:var(--ink);box-shadow:0 30px 90px rgba(0,0,0,.28);margin:auto}
+dialog::backdrop{background:rgba(0,0,0,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+dialog[open]{animation:pop .35s var(--ease)}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.dlg-h{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:20px 28px;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);z-index:2}
+.dlg-h h3{font-size:1.25rem}
+.x{width:32px;height:32px;border-radius:50%;background:var(--bg-soft);font-size:1.1rem;line-height:1;transition:all .3s var(--ease)}
+.x:hover{background:var(--line)}
+.dlg-b{padding:28px}
+.dlg-b p{color:var(--ink-2);margin-bottom:16px}
+.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:12px;background:var(--bg-soft);margin-bottom:22px}
+.tabs button{padding:8px 16px;border-radius:9px;font-size:.88rem;font-weight:500;color:var(--ink-2);transition:all .3s var(--ease)}
+.tabs button[aria-selected="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.acc{border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;cursor:pointer;padding:16px 0;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-size:1.4rem;font-weight:300;color:var(--ink-2);transition:transform .3s var(--ease)}
+.acc details[open] summary::after{transform:rotate(45deg)}
+.acc details>div{padding:0 0 18px;color:var(--ink-2);font-size:.96rem}
+.acc details>div b{color:var(--ink)}
+.matrix{display:grid;gap:10px}
+.mrow{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:start;padding:14px 16px;border-radius:12px;background:var(--bg-soft)}
+.mrow strong{color:var(--c)}
+@media(max-width:520px){.mrow{grid-template-columns:1fr}}
+.case{padding:18px 20px;border-radius:14px;background:var(--bg-soft);margin-bottom:12px}
+.case h4{font-size:1.1rem;margin-bottom:4px}
+.case .kpi{display:inline-block;margin-top:8px;font-weight:600;color:var(--accent);font-size:.9rem}
+
+/* tools */
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.tools{grid-template-columns:1fr}}
+.tool{background:var(--bg);border:1px solid var(--line);border-radius:24px;padding:36px;box-shadow:var(--shadow)}
+.tool h3{font-size:1.5rem;margin-bottom:6px}
+.tool>p{color:var(--ink-2);font-size:.95rem;margin-bottom:24px}
+.field{margin-bottom:22px}
+.field label{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;font-weight:500;margin-bottom:8px;gap:12px}
+.field input[type=number]{width:120px;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg-soft);color:var(--ink);font:inherit;font-size:.95rem;text-align:right;transition:all .3s var(--ease)}
+.field input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,113,227,.2);background:var(--bg)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background:var(--line);outline-offset:8px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.res div{padding:16px;border-radius:14px;background:var(--bg-soft);border:1px solid var(--line)}
+.res span{display:block;font-size:.78rem;color:var(--ink-2)}
+.res b{display:block;font-size:1.55rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums;word-break:break-word}
+.res .big{grid-column:1/-1;background:var(--accent);border-color:var(--accent);color:#fff}
+.res .big span{color:rgba(255,255,255,.8)}
+.res .big b{font-size:2.2rem}
+.bars{margin-top:20px;display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:78px 1fr 64px;gap:10px;align-items:center;font-size:.8rem;color:var(--ink-2)}
+.bar i{display:block;height:10px;border-radius:6px;background:var(--c);transition:width .4s var(--ease);min-width:3px}
+.bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+.insight{margin-top:18px;font-size:.9rem;color:var(--ink-2);padding:14px 16px;border-radius:12px;background:var(--bg-soft)}
+.pbar{height:8px;border-radius:8px;background:var(--bg-soft);border:1px solid var(--line);overflow:hidden;margin:6px 0 26px}
+.pbar i{display:block;height:100%;width:0;border-radius:8px;background:var(--accent);transition:width .4s var(--ease)}
+.plabel{display:flex;justify-content:space-between;font-size:.9rem;font-weight:500}
+.plabel b{font-variant-numeric:tabular-nums}
+.grp{margin-bottom:20px}
+.grp h4{font-size:.9rem;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.grp h4::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--c)}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border-radius:12px;cursor:pointer;transition:background .3s var(--ease);font-size:.94rem}
+.chk:hover{background:var(--bg-soft)}
+.chk input{position:absolute;opacity:0;pointer-events:none}
+.chk .box{flex:none;width:22px;height:22px;border-radius:7px;border:1.5px solid var(--ink-2);display:grid;place-items:center;transition:all .3s var(--ease);margin-top:1px}
+.chk .box::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .25s var(--ease);margin-top:-2px}
+.chk input:checked+.box{background:var(--accent);border-color:var(--accent)}
+.chk input:checked+.box::after{transform:rotate(45deg) scale(1)}
+.chk input:checked~.t{color:var(--ink-2);text-decoration:line-through}
+.chk input:focus-visible+.box{outline:3px solid var(--accent);outline-offset:2px}
+.reset{margin-top:8px;color:var(--accent);font-size:.9rem}
+.msg{margin-top:14px;font-size:.92rem;padding:14px 16px;border-radius:12px;background:var(--bg-soft)}
+
+footer{padding:56px 0 64px;text-align:center;border-top:1px solid var(--line);color:var(--ink-2);font-size:.85rem}
+footer .links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+footer a{color:var(--ink-2)}footer a:hover{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media(max-width:600px){section{padding:80px 0}.panel,.tool,.card{padding:26px}}
+</style>
+</head>
+<body>
+<div id="progress" role="progressbar" aria-label="Progreso de lectura" aria-valuemin="0" aria-valuemax="100"></div>
+
+<nav aria-label="Principal">
+  <div class="wrap">
+    <b>Digital Business Masterclass</b>
+    <ul>
+      <li><a href="#embudo">Embudo</a></li>
+      <li><a href="#modulos">Módulos</a></li>
+      <li><a href="#practica">Práctica</a></li>
+    </ul>
+    <span class="pct" id="pct">0 % completado</span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">Digital Business Masterclass</span>
+    <h1>Dominando el Embudo de Ventas Digital</h1>
+    <p>Aprende a guiar a un desconocido desde su primer contacto con tu marca hasta convertirlo en cliente leal y promotor, con el modelo RACE de Dave Chaffey y métricas que sí puedes gestionar.</p>
+    <div class="btns">
+      <a class="btn p" href="#embudo">Explorar el embudo</a>
+      <a class="btn s" href="#practica">Ir a la práctica</a>
+    </div>
+    <div class="race-strip" aria-label="Modelo RACE">
+      <div><strong>Reach</strong><span>Alcance · TOFU</span></div>
+      <div><strong>Act</strong><span>Interacción · MOFU</span></div>
+      <div><strong>Convert</strong><span>Conversión · BOFU</span></div>
+      <div><strong>Engage</strong><span>Fidelización</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="soft" id="embudo">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>El embudo, etapa por etapa</h2>
+      <p class="lead">El embudo digital es el proceso paso a paso que sigue un usuario desde que descubre una marca hasta que compra, repite y la recomienda. Toca una etapa para ver su detalle.</p>
+    </div>
+    <div class="funnel-grid">
+      <div>
+        <div class="funnel" role="tablist" aria-label="Etapas del embudo" id="funnel"></div>
+        <p class="hint">Consejo: usa las flechas del teclado para moverte entre etapas.</p>
+      </div>
+      <article class="panel" id="panel" aria-live="polite"></article>
+    </div>
+  </div>
+</section>
+
+<section id="modulos">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Módulos de aprendizaje</h2>
+      <p class="lead">Cuatro lecciones breves. Ábrelas en el orden que prefieras.</p>
+    </div>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<section class="soft" id="practica">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Ponlo en práctica</h2>
+      <p class="lead">Simula cuánto vale mejorar un punto de conversión y comprueba que tu plan de embudo está completo.</p>
+    </div>
+    <div class="tools">
+      <div class="tool" id="calc">
+        <h3>Simulador de conversión</h3>
+        <p>Cambia cualquier valor y los resultados se actualizan al instante.</p>
+
+        <div class="field">
+          <label for="v">Tráfico / visitantes totales <input type="number" id="vN" min="0" step="1000" aria-label="Visitantes (valor exacto)"></label>
+          <input type="range" id="v" min="0" max="1000000" step="1000">
+        </div>
+        <div class="field">
+          <label for="l">Conversión a lead (%) <input type="number" id="lN" min="0" max="100" step="0.1" aria-label="Tasa de lead (valor exacto)"></label>
+          <input type="range" id="l" min="0" max="100" step="0.1">
+        </div>
+        <div class="field">
+          <label for="s">Conversión de lead a venta (%) <input type="number" id="sN" min="0" max="100" step="0.1" aria-label="Tasa de venta (valor exacto)"></label>
+          <input type="range" id="s" min="0" max="100" step="0.1">
+        </div>
+        <div class="field">
+          <label for="a">Valor promedio del pedido, AOV ($) <input type="number" id="aN" min="0" step="1" aria-label="AOV (valor exacto)"></label>
+          <input type="range" id="a" min="0" max="1000" step="1">
+        </div>
+
+        <div class="res">
+          <div><span>Leads generados</span><b id="rL">0</b></div>
+          <div><span>Ventas / clientes</span><b id="rS">0</b></div>
+          <div><span>Conversión global del embudo</span><b id="rG">0 %</b></div>
+          <div><span>Ingreso por visita</span><b id="rV">$0</b></div>
+          <div class="big"><span>Ingreso total estimado</span><b id="rR">$0</b></div>
+        </div>
+        <div class="bars" aria-hidden="true">
+          <div class="bar" style="--c:var(--tofu)"><span>Visitantes</span><i id="b1"></i><em id="e1"></em></div>
+          <div class="bar" style="--c:var(--mofu)"><span>Leads</span><i id="b2"></i><em id="e2"></em></div>
+          <div class="bar" style="--c:var(--bofu)"><span>Ventas</span><i id="b3"></i><em id="e3"></em></div>
+        </div>
+        <p class="insight" id="ins"></p>
+      </div>
+
+      <div class="tool" id="check">
+        <h3>Checklist del docente</h3>
+        <p>Marca cada tarea antes de lanzar tu embudo.</p>
+        <div class="plabel"><span>Preparación del lanzamiento</span><b id="cp">0 %</b></div>
+        <div class="pbar"><i id="cb"></i></div>
+        <div id="groups"></div>
+        <div class="msg" id="cm"></div>
+        <button class="reset" id="rs">Reiniciar checklist</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<dialog id="dlg" aria-labelledby="dt">
+  <div class="dlg-h"><h3 id="dt"></h3><button class="x" id="dx" aria-label="Cerrar">×</button></div>
+  <div class="dlg-b" id="db"></div>
+</dialog>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:var(--ink)">Digital Business Masterclass</strong>
+    <div class="links">
+      <a href="#embudo">Embudo</a><a href="#modulos">Módulos</a><a href="#practica">Práctica</a>
+    </div>
+    <p>Basado en <em>Digital Marketing: Strategy, Implementation and Practice</em>, Dave Chaffey y Fiona Ellis-Chadwick (2022). Material educativo.</p>
+    <p style="margin-top:6px">© <span id="yr"></span> Curso de Negocios Digitales y Marketing</p>
+  </div>
+</footer>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- DATA ---------- */
+const STAGES=[
+ {id:"tofu",c:"#0071e3",tag:"TOFU · REACH",name:"Alcance y atracción",sub:"Atraer tráfico cualificado y dar visibilidad a la marca",
+  obj:"Que la audiencia adecuada te descubra. Se busca volumen de visitas de calidad, no solo cantidad.",
+  strat:["Publicar contenido educativo que responda a las búsquedas de tu audiencia","Combinar medios propios, pagados y ganados (paid, owned, earned)","Segmentar por intención, intereses y comportamiento para reducir el desperdicio"],
+  canales:["SEO","Google Ads (PPC)","Redes sociales orgánicas","Display","Relaciones públicas digitales","Influencers"],
+  vqvc:{V:"Visitantes únicos, sesiones, páginas vistas, alcance",Q:"Tasa de rebote, duración de la sesión",C:"Costo por clic (CPC), CPM",VA:"Ingreso por visita (a largo plazo)"},
+  cont:["Artículos de blog","Vídeos virales","Infografías","Redes sociales orgánicas"]},
+ {id:"mofu",c:"#5e5ce6",tag:"MOFU · ACT",name:"Interacción y captura",sub:"Generar leads, capturar datos y nutrir el interés",
+  obj:"Convertir visitantes en contactos con permiso (leads) y acompañarlos con contenido útil hasta que estén listos para decidir.",
+  strat:["Ofrecer un contenido valioso a cambio de un registro (lead magnet)","Usar landing pages específicas en lugar de la página de inicio","Nutrir (nurturing) con email automatizado según comportamiento y etapa"],
+  canales:["Landing pages","Email marketing","Webinars","Retargeting","Chat y call-back"],
+  vqvc:{V:"Leads generados, suscriptores nuevos",Q:"Tasa de conversión visita a lead, tasa de apertura y clic",C:"Costo por lead (CPL)",VA:"Valor estimado por lead"},
+  cont:["Guías descargables (ebooks)","Webinars","Plantillas","Listas de verificación"]},
+ {id:"bofu",c:"#30a46c",tag:"BOFU · CONVERT",name:"Conversión y venta",sub:"Activar la compra, cerrar y optimizar la transacción",
+  obj:"Eliminar dudas y fricción para que el lead compre. Aquí se optimiza cada paso del proceso de pago.",
+  strat:["Reducir fricción en el checkout y probar variantes (tests A/B)","Aportar prueba social: casos de éxito, reseñas, garantías","Retargeting a quienes abandonaron el carrito o visitaron precios"],
+  canales:["Email transaccional","Búsqueda de marca (brand PPC)","Retargeting","Chat / ventas asistidas","Afiliados"],
+  vqvc:{V:"Pedidos, número de ventas",Q:"Tasa de conversión lead a venta, abandono de carrito",C:"Costo por adquisición (CPA), costo por venta (CPS), ROAS",VA:"Valor medio de pedido (AOV)"},
+  cont:["Casos de estudio","Demos interactivas","Hojas de precios","Descuentos de bienvenida"]},
+ {id:"eng",c:"#ff9f0a",tag:"POST-EMBUDO · ENGAGE",name:"Fidelización y LTV",sub:"Retener, aumentar el valor de vida y generar recomendación",
+  obj:"Conseguir compras repetidas y promotores de marca. Aumentar el LTV suele ser más rentable que adquirir un cliente nuevo.",
+  strat:["Automatizar comunicaciones según el ciclo de vida del cliente","Crear programas de fidelización y ofertas por segmento de valor","Medir satisfacción y recomendación (NPS) y actuar sobre el feedback"],
+  canales:["Email y newsletters","Redes sociales de comunidad","Apps y notificaciones","Programas de lealtad","Atención al cliente"],
+  vqvc:{V:"Clientes activos, compras repetidas",Q:"Tasa de retención, NPS",C:"Costo de retención por cliente",VA:"Valor de vida del cliente (LTV)"},
+  cont:["Newsletters exclusivas","Programas de fidelización","Automatizaciones de retención"]}
+];
+const VQ=[["V","Volumen"],["Q","Calidad"],["VA","Valor"],["C","Costo"]];
+
+const MODS=[
+ {ic:"🧭",t:"Fundamentos y filosofía RACE",d:"Qué es un embudo digital y cómo se conecta con el modelo RACE.",
+  html:()=>`
+  <p>El embudo digital describe el camino paso a paso del usuario: descubre la marca, muestra interés, compra y, si la experiencia es buena, repite y recomienda. El modelo RACE de Dave Chaffey organiza esa gestión en cuatro fases con objetivos claros.</p>
+  <div class="matrix">${STAGES.map((s,i)=>`<div class="mrow" style="--c:${s.c}"><strong>${["Reach","Act","Convert","Engage"][i]}</strong><span><b>${esc(s.tag.split(" · ")[0])}.</b> ${esc(s.sub)}.</span></div>`).join("")}</div>
+  <div class="acc" style="margin-top:22px">
+    <details><summary>¿Por qué un embudo y no una lista de canales?</summary><div>Porque cada etapa necesita un objetivo, un mensaje y una métrica distintos. Medir todo solo con visitas oculta dónde se pierde el negocio.</div></details>
+    <details><summary>¿Qué significa gestionar el ciclo de vida?</summary><div>Pasar de captar clientes una sola vez a construir relaciones: adquirir, convertir y retener, con foco en el valor de vida (LTV).</div></details>
+    <details><summary>Push y pull: dos formas de llegar</summary><div>Los medios tradicionales empujan el mensaje (push). Los digitales, como búsqueda, contenido y redes, atraen a quien ya tiene una necesidad (pull). Conviene combinarlos e integrarlos.</div></details>
+    <details><summary>Campañas y "always-on"</summary><div>Las campañas por ráfagas conviven con actividad continua en búsqueda, redes y email, que permite optimizar durante el año.</div></details>
+  </div>`},
+ {ic:"📊",t:"Marco de métricas VQVC",d:"Volumen, Calidad, Valor y Costo: mide más allá de las visitas.",
+  html:()=>`
+  <p>No basta con contar visitas. El marco VQVC obliga a mirar cuatro dimensiones a la vez.</p>
+  <div class="tabs" role="tablist" id="vt">${VQ.map((v,i)=>`<button role="tab" aria-selected="${i===0}" data-k="${v[0]}">${v[1]}</button>`).join("")}</div>
+  <div id="vb"></div>
+  <div class="acc" style="margin-top:20px">
+    <details><summary>Fórmulas útiles</summary><div>
+      <b>Tasa de rebote</b> = visitas de una sola página ÷ visitas totales × 100.<br>
+      <b>CPA</b> = costo de medios ÷ nº de adquisiciones. Ejemplo: CPC de 2 y 10 % de conversión dan un CPA de 20.<br>
+      <b>ROAS</b> = ingresos generados ÷ gasto publicitario.<br>
+      <b>ROI</b> = beneficio generado ÷ gasto publicitario.</div></details>
+    <details><summary>CPA permitido</summary><div>Define un costo máximo por adquisición que siga siendo rentable, apoyado en el LTV del cliente.</div></details>
+  </div>`,
+  after(){
+    const D={
+     V:["Cuántas personas llegan","Visitantes únicos, sesiones, páginas vistas, impresiones y alcance (%)","Ejemplo: un banco online con 1 millón de visitantes únicos al mes."],
+     Q:["Qué hacen al llegar","Tasa de rebote, duración de sesión, tasa de conversión a lead o venta","Ejemplo: el 10 % de los visitantes solicita una cotización."],
+     VA:["Cuánto vale cada resultado","Valor medio de pedido (AOV), valor de vida del cliente (LTV), ingreso por visita","Ejemplo: valorar con puntos los resultados sin venta online (folleto, prueba de manejo)."],
+     C:["Cuánto cuesta conseguirlo","CPC, CPA, costo por venta (CPS) y ROAS","Ejemplo: 500 clics por £1.000 equivalen a un CPC de £2."]};
+    const put=k=>{const d=D[k];$("#vb").innerHTML=`<div class="case fade"><h4>${d[0]}</h4><div>${d[1]}</div><span class="kpi">${d[2]}</span></div>`};
+    put("V");
+    $("#vt").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+      $("#vt").querySelectorAll("button").forEach(x=>x.setAttribute("aria-selected",x===b));put(b.dataset.k)});
+  }},
+ {ic:"🗂️",t:"Estrategia de contenidos por etapa",d:"Qué contenido publicar según el momento del usuario.",
+  html:()=>`
+  <p>El contenido alimenta todos los canales. La clave es dar a cada persona lo que necesita en su etapa.</p>
+  <div class="matrix">${STAGES.map(s=>`<div class="mrow" style="--c:${s.c}"><strong>${esc(s.tag.split(" · ")[0].replace("POST-EMBUDO","ENGAGE"))}</strong><span>${s.cont.map(esc).join(" · ")}</span></div>`).join("")}</div>
+  <div class="acc" style="margin-top:22px">
+    <details><summary>Emocional o racional</summary><div>Al inicio funciona mejor el contenido que entretiene o educa. Al final pesan más las pruebas racionales: precios, casos y comparativas.</div></details>
+    <details><summary>Calendario editorial</summary><div>Define por tema el objetivo, la frecuencia, el formato y si se impulsa con pauta. Así mantienes constancia.</div></details>
+    <details><summary>Excepción</summary><div>Si la oferta principal es un descuento, el contenido pierde peso frente al precio.</div></details>
+  </div>`},
+ {ic:"🏆",t:"Casos de estudio reales",d:"ASOS, Glenigan y SEAT: qué hicieron y qué aprendemos.",
+  html:()=>`
+  <div class="case"><h4>ASOS</h4><div>Uso de redes sociales y retargeting para dominar la moda digital entre jóvenes de unos 20 años.</div><span class="kpi">Lección: la audiencia joven vive en redes; el retargeting recupera el interés.</span></div>
+  <div class="case"><h4>Glenigan</h4><div>Servicio de información para la construcción (Reino Unido). Optimizó su búsqueda de pago B2B ajustando por hora y día, datos demográficos y audiencias en el mercado, y excluyó a clientes actuales de la prospección.</div><span class="kpi">Resultado: +17,5 % de leads cualificados y −20 % en el costo por lead, con el mismo presupuesto.</span></div>
+  <div class="case"><h4>SEAT</h4><div>Integración de email marketing y display para aumentar el recuerdo de marca y la intención de compra.</div><span class="kpi">Lección: los canales se refuerzan entre sí cuando se planifican juntos.</span></div>
+  <p style="margin-top:14px;font-size:.88rem">Nota: los datos de Glenigan proceden del capítulo 8 del libro. Verifica las cifras de ASOS y SEAT en tu material de curso.</p>`}
+];
+
+const CHECK=[
+ {s:0,items:["Definí la audiencia objetivo y sus necesidades","Elegí los canales de atracción (SEO, pauta, redes)","Planifiqué contenido de descubrimiento (blog, vídeo)","Configuré el seguimiento con etiquetas UTM"]},
+ {s:1,items:["Diseñé una landing page con un único llamado a la acción","Preparé un lead magnet (guía, plantilla o webinar)","Creé una secuencia de email de nutrición","Definí cómo calificar a los leads"]},
+ {s:2,items:["Simplifiqué el proceso de compra","Incluí casos de estudio y prueba social","Configuré retargeting para abandonos","Definí el CPA máximo permitido"]},
+ {s:3,items:["Diseñé el email de bienvenida y la posventa","Definí un programa de fidelización","Medí NPS y LTV","Automaticé la reactivación de clientes inactivos"]}
+];
+
+/* ---------- FUNNEL ---------- */
+const fun=$("#funnel"),panel=$("#panel");
+fun.innerHTML=STAGES.map((s,i)=>`<button class="stage" role="tab" id="st${i}" aria-selected="${i===0}" tabindex="${i===0?0:-1}" style="--c:${s.c}" data-i="${i}"><small>${esc(s.tag)}</small><strong>${esc(s.name)}</strong><span>${esc(s.sub)}</span></button>`).join("");
+function showStage(i,focus){
+  const s=STAGES[i];
+  fun.querySelectorAll(".stage").forEach((b,j)=>{b.setAttribute("aria-selected",j===i);b.tabIndex=j===i?0:-1});
+  if(focus)fun.children[i].focus();
+  panel.style.setProperty("--c",s.c);
+  panel.setAttribute("aria-labelledby","st"+i);
+  panel.innerHTML=`<div class="fade"><span class="tag">${esc(s.tag)}</span><h3>${esc(s.name)}</h3><p class="obj">${esc(s.obj)}</p>
+   <div class="blk"><h4>Estrategias tácticas</h4><ul>${s.strat.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+   <div class="blk"><h4>Canales clave</h4><div class="chips">${s.canales.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div></div>
+   <div class="blk"><h4>Métricas VQVC</h4><div class="vqvc">${VQ.map(v=>`<div><b>${v[1]}</b><span>${esc(s.vqvc[v[0]])}</span></div>`).join("")}</div></div>
+   <div class="blk"><h4>Contenidos recomendados</h4><div class="chips">${s.cont.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div></div></div>`;
+}
+fun.addEventListener("click",e=>{const b=e.target.closest(".stage");if(b)showStage(+b.dataset.i)});
+fun.addEventListener("keydown",e=>{
+  const cur=+document.activeElement.dataset.i;if(isNaN(cur))return;
+  let n=null;
+  if(e.key==="ArrowDown"||e.key==="ArrowRight")n=(cur+1)%4;
+  if(e.key==="ArrowUp"||e.key==="ArrowLeft")n=(cur+3)%4;
+  if(n!==null){e.preventDefault();showStage(n,true)}
+});
+showStage(0);
+
+/* ---------- MODULES ---------- */
+const dlg=$("#dlg");
+$("#cards").innerHTML=MODS.map((m,i)=>`<button class="card" data-i="${i}"><span class="ic" aria-hidden="true">${m.ic}</span><h3>${esc(m.t)}</h3><p>${esc(m.d)}</p><span class="more">Abrir lección</span></button>`).join("");
+$("#cards").addEventListener("click",e=>{
+  const c=e.target.closest(".card");if(!c)return;
+  const m=MODS[+c.dataset.i];
+  $("#dt").textContent=m.t;$("#db").innerHTML=m.html();
+  if(m.after)m.after();
+  dlg.showModal();dlg.scrollTop=0;
+});
+$("#dx").addEventListener("click",()=>dlg.close());
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+
+/* ---------- CALCULATOR ---------- */
+const P=[["v","vN"],["l","lN"],["s","sN"],["a","aN"]];
+const state={v:100000,l:5,s:10,a:50};
+const fmt=(n,d=0)=>n.toLocaleString("es-ES",{maximumFractionDigits:d,minimumFractionDigits:d});
+const money=n=>"$"+fmt(n,n<100?2:0);
+function calc(){
+  const leads=state.v*state.l/100, sales=leads*state.s/100, rev=sales*state.a, g=state.v?sales/state.v*100:0;
+  $("#rL").textContent=fmt(leads);$("#rS").textContent=fmt(sales);
+  $("#rG").textContent=fmt(g,2)+" %";$("#rV").textContent=money(state.v?rev/state.v:0);$("#rR").textContent=money(rev);
+  const mx=Math.max(state.v,1);
+  $("#b1").style.width="100%";$("#b2").style.width=Math.max(leads/mx*100,.5)+"%";$("#b3").style.width=Math.max(sales/mx*100,.5)+"%";
+  $("#e1").textContent=fmt(state.v);$("#e2").textContent=fmt(leads);$("#e3").textContent=fmt(sales);
+  const extra=state.v*state.l/100*(state.s+1)/100*state.a-rev;
+  $("#ins").textContent=`Subir un punto la conversión de lead a venta sumaría unos ${money(extra)} de ingreso con el mismo tráfico.`;
+}
+P.forEach(([r,n])=>{
+  const R=$("#"+r),N=$("#"+n);
+  R.value=N.value=state[r];
+  R.addEventListener("input",()=>{state[r]=+R.value;N.value=R.value;calc()});
+  N.addEventListener("input",()=>{const v=Math.max(0,+N.value||0);state[r]=v;R.value=v;calc()});
+});
+calc();
+
+/* ---------- CHECKLIST ---------- */
+const KEY="embudo-checklist";
+let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+$("#groups").innerHTML=CHECK.map((g,gi)=>`<div class="grp" style="--c:${STAGES[g.s].c}"><h4>${esc(STAGES[g.s].tag)}</h4>${g.items.map((t,i)=>{const id=`c${gi}_${i}`;return `<label class="chk"><input type="checkbox" id="${id}" ${saved[id]?"checked":""}><span class="box"></span><span class="t">${esc(t)}</span></label>`}).join("")}</div>`).join("");
+function cUpdate(){
+  const all=[...document.querySelectorAll("#groups input")],done=all.filter(x=>x.checked).length,p=Math.round(done/all.length*100);
+  $("#cp").textContent=p+" %";$("#cb").style.width=p+"%";
+  $("#cm").textContent=p===100?"Todo listo. Tu embudo está preparado para lanzarse.":p>=50?`Vas bien: te faltan ${all.length-done} tareas.`:`Empieza por Alcance: completa las tareas de TOFU primero.`;
+  const o={};all.forEach(x=>{if(x.checked)o[x.id]=1});
+  try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+}
+$("#groups").addEventListener("change",cUpdate);
+$("#rs").addEventListener("click",()=>{document.querySelectorAll("#groups input").forEach(x=>x.checked=false);cUpdate()});
+cUpdate();
+
+/* ---------- SCROLL PROGRESS ---------- */
+const bar=$("#progress");
+function onScroll(){
+  const h=document.documentElement,max=h.scrollHeight-h.clientHeight,p=max>0?Math.min(100,Math.round(h.scrollTop/max*100)):0;
+  bar.style.width=p+"%";bar.setAttribute("aria-valuenow",p);$("#pct").textContent=p+" % completado";
+}
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+$("#yr").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
